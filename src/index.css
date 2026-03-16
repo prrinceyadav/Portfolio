@@ -1,0 +1,398 @@
+@import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/inter/800.css";
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+
+/* ── Design Tokens — Light Theme ── */
+:root {
+  --bg-primary: #f8f9fc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #eef1f6;
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-hover: rgba(255, 255, 255, 0.85);
+  --text-primary: #1a1a2e;
+  --text-secondary: #5a5a7a;
+  --accent-blue: #4285f4;
+  --accent-purple: #8b5cf6;
+  --accent-cyan: #06b6a0;
+  --accent-pink: #ec4899;
+  --accent-orange: #f59e0b;
+  --accent-red: #ef4444;
+  --accent-green: #22c55e;
+  --glow-blue: rgba(66, 133, 244, 0.2);
+  --glow-purple: rgba(139, 92, 246, 0.2);
+  --glow-cyan: rgba(6, 182, 160, 0.15);
+  --glow-pink: rgba(236, 72, 153, 0.15);
+  --glow-orange: rgba(245, 158, 11, 0.12);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.06);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.08);
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-purple), var(--accent-pink));
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+/* ── Glass Utilities ── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-card:hover {
+  background: var(--glass-hover);
+  border-color: rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 40px var(--glow-blue),
+    0 0 60px var(--glow-purple);
+}
+
+.glass-nav {
+  background: rgba(248, 249, 252, 0.85);
+  backdrop-filter: blur(30px) saturate(1.8);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ── Ambient Glow Blobs ── */
+.ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  animation: ambient-drift 8s ease-in-out infinite alternate;
+}
+
+.glow-blue {
+  background: radial-gradient(circle, rgba(66, 133, 244, 0.35), transparent 70%);
+}
+
+.glow-purple {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.35), transparent 70%);
+}
+
+.glow-cyan {
+  background: radial-gradient(circle, rgba(6, 182, 160, 0.3), transparent 70%);
+}
+
+.glow-pink {
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.28), transparent 70%);
+}
+
+.glow-orange {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.28), transparent 70%);
+}
+
+/* ── Noise Overlay ── */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ── Section Shared ── */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-heading {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-blue) 50%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+}
+
+.section-subheading {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 48px;
+  max-width: 600px;
+}
+
+/* ── Dual-Tone Section Backgrounds ── */
+.section-blue-tint {
+  background: linear-gradient(180deg, 
+    rgba(66, 133, 244, 0.04) 0%, 
+    rgba(66, 133, 244, 0.08) 50%, 
+    rgba(66, 133, 244, 0.03) 100%);
+}
+
+.section-purple-tint {
+  background: linear-gradient(180deg, 
+    rgba(139, 92, 246, 0.04) 0%, 
+    rgba(139, 92, 246, 0.08) 50%, 
+    rgba(139, 92, 246, 0.03) 100%);
+}
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), var(--accent-purple), transparent);
+  opacity: 0.2;
+}
+
+/* ── Glow Badge ── */
+.glow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(66, 133, 244, 0.1);
+  border: 1px solid rgba(66, 133, 244, 0.2);
+  color: var(--accent-blue);
+  transition: all 0.3s ease;
+}
+
+.glow-badge:hover {
+  background: rgba(66, 133, 244, 0.18);
+  box-shadow: 0 0 20px rgba(66, 133, 244, 0.15);
+  transform: translateY(-1px);
+}
+
+.glow-badge.purple {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.2);
+  color: var(--accent-purple);
+}
+.glow-badge.purple:hover {
+  background: rgba(139, 92, 246, 0.18);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+}
+
+.glow-badge.cyan {
+  background: rgba(6, 182, 160, 0.1);
+  border-color: rgba(6, 182, 160, 0.2);
+  color: var(--accent-cyan);
+}
+.glow-badge.cyan:hover {
+  background: rgba(6, 182, 160, 0.18);
+  box-shadow: 0 0 20px rgba(6, 182, 160, 0.15);
+}
+
+.glow-badge.pink {
+  background: rgba(236, 72, 153, 0.1);
+  border-color: rgba(236, 72, 153, 0.2);
+  color: var(--accent-pink);
+}
+.glow-badge.pink:hover {
+  background: rgba(236, 72, 153, 0.18);
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.15);
+}
+
+.glow-badge.orange {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: var(--accent-orange);
+}
+.glow-badge.orange:hover {
+  background: rgba(245, 158, 11, 0.18);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+/* ── Magnetic / Glow Buttons ── */
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 16px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+  color: #fff;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan), var(--accent-blue));
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 8px 30px var(--glow-blue),
+    0 0 60px var(--glow-purple);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 16px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-secondary);
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md), 0 0 20px var(--glow-purple);
+  color: var(--accent-purple);
+}
+
+/* ── Arrow animation on hover ── */
+.link-arrow {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+a:hover .link-arrow,
+.glass-card:hover .link-arrow {
+  transform: translate(3px, -3px);
+  color: var(--accent-blue) !important;
+}
+
+/* ── Animated Grid Background ── */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000, transparent);
+}
+
+/* ── Global Keyframes ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 0px transparent; }
+  50% { opacity: 1; box-shadow: 0 0 15px rgba(236, 72, 153, 0.25); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes ambient-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(20px, -15px) scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .section-container {
+    padding: 0 16px;
+  }
+  .glass-card {
+    border-radius: 16px;
+  }
+}
