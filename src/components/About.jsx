@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
+import profileImg from '../assets/profile.jpg'
 
 const skills = [
   { name: 'Machine Learning', color: 'blue' },
@@ -92,7 +93,7 @@ export default function About() {
                 }}
               >
                 <img
-                  src="/profile.jpg"
+                  src={profileImg}
                   alt="Prince Yadav"
                   style={{
                     width: '100%',

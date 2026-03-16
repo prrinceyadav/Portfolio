@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { TypeAnimation } from 'react-type-animation'
 import { FiArrowRight, FiGithub, FiLinkedin } from 'react-icons/fi'
 import MagneticButton from './MagneticButton'
+import profileImg from '../assets/profile.jpg'
 
 export default function Hero() {
   const cardRef = useRef(null)
@@ -84,7 +85,7 @@ export default function Hero() {
               }}
             >
               <img
-                src="/profile.jpg"
+                src={profileImg}
                 alt="Prince Yadav"
                 style={{
                   width: '100%',

@@ -1,6 +1,8 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { FiExternalLink, FiGithub, FiZap, FiBookOpen, FiCpu, FiTarget } from 'react-icons/fi'
+import nextaiqIndustrial from '../assets/nextaiq-industrial.png'
+import nextaiqEdu from '../assets/nextaiq-edu.png'
 
 export default function Startup() {
   const ref = useRef(null)
@@ -95,7 +97,7 @@ export default function Startup() {
             }}
           >
             <img
-              src="/nextaiq-industrial.png"
+              src={nextaiqIndustrial}
               alt="NextAIQ Labs Industrial Automation"
               style={{
                 width: '100%',
@@ -173,7 +175,7 @@ export default function Startup() {
             {/* Image Side */}
             <div style={{ position: 'relative', minHeight: 300, overflow: 'hidden' }}>
               <img
-                src="/nextaiq-edu.png"
+                src={nextaiqEdu}
                 alt="NextAIQ-Edu AI Training for Schools"
                 style={{
                   width: '100%',
